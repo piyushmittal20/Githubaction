@@ -1,9 +1,11 @@
 const express = require("express");
+const axios = require("axios");
 
 const app = express();
 
-app.use("/", (req, res) => {
-  res.send("Hello, I am used for Github Actions!!!!");
+app.get("/", async (req, res, next) => {
+  let image = await axios("https://source.unsplash.com/random");
+  res.send(`<img src="${image.request.res.responseUrl}" />`);
 });
 
 app.listen(4000, () => {
